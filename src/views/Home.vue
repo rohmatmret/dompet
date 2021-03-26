@@ -22,7 +22,9 @@
         <div class="row">
           <div v-for="item in results" :key="item.id" class="col-md-3">
             <div class="card p-1 mb-1">
-              <div class="card-title">{{ formatDate(item.date) }}</div>
+              <div class="card-title pl-2">
+                <b> {{ formatDate(item.date) }} </b>
+              </div>
               <table class="table">
                 <tbody v-for="detail in item.dompet" :key="detail.id">
                   <tr>
@@ -33,7 +35,7 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="2">Total</td>
+                    <td colspan="2"><b> Total </b></td>
                     <td>Rp {{ formatPrice(ViewCount(item.dompet)) }}</td>
                   </tr>
                 </tfoot>
@@ -78,7 +80,7 @@
                 </div>
                 <div class="modal-footer">
                   <button
-                    type="button"
+                    type="submit"
                     class="btn btn-primary"
                     @click="actionSave"
                   >
@@ -134,13 +136,16 @@ export default {
       let data = this.destructor(this.items);
       data.sort((a, b) => dayjs(b.date) - dayjs(a.date));
       this.results = data;
-      this.SumtotalCost(data);
-      this.SumCurrentCost(data);
+      this.SumtotalCost(this.results);
+      this.SumCurrentCost(this.results);
     },
     SumtotalCost(items) {
+      let total = 0;
       items.forEach((el) => {
-        this.totalCost += this.ViewCount(el.dompet);
+        total += this.ViewCount(el.dompet);
+        console.log(total);
       });
+      this.totalCost = total;
     },
     SumCurrentCost(items) {
       let curent_month = dayjs().format("YYYY-MM-DD");
@@ -234,6 +239,7 @@ export default {
 
       this.hideModal();
       this.SumCurrentCost(this.results);
+      this.SumtotalCost(this.results);
       this.Form = {};
     },
     ViewCount(items) {
