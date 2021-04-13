@@ -32,3 +32,11 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+## Home page
+![home](https://github.com/rohmatmret/dompet/blob/master/src/assets/home.png?raw=true)
+
+## Tes Speed Tests
+
+![tests](https://github.com/rohmatmret/dompet/blob/master/src/assets/spedd.png?raw=true)
