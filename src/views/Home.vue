@@ -67,6 +67,7 @@
                       type="text"
                       v-model="Form.name"
                       class="form-control"
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -75,6 +76,7 @@
                       type="number"
                       v-model="Form.harga"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -205,15 +207,19 @@ export default {
     actionSave() {
       let lastNumber = this.data[this.data.length - 1].id;
       this.current_number += lastNumber;
-      let payload = {
-        id: this.current_number + 1,
-        name: this.Form.name,
-        cost: this.Form.harga,
-        created_at: dayjs().format("YYYY-MM-DD hh:mm:ss"),
-      };
-      this.current_number;
+      if (!this.Form || this.Form.name || !this.Form.harga) {
+        alert("please fill text");
+      } else {
+        let payload = {
+          id: this.current_number + 1,
+          name: this.Form.name,
+          cost: this.Form.harga,
+          created_at: dayjs().format("YYYY-MM-DD hh:mm:ss"),
+        };
+        this.current_number;
 
-      this.updateState(payload);
+        this.updateState(payload);
+      }
     },
     sortingDate(arr) {
       arr.sort((a, b) => dayjs(b.date) - dayjs(a.date));
